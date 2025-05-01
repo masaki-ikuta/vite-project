@@ -1,0 +1,162 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  position: relative;
+  width: 100vw; /* ビューポート幅を強制的に使用 */
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box; /* パディングを含めて幅を計算 */
+}
+
+footer {
+  width: 100%; /* フッターも画面いっぱいに広げる */
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+aside {
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  background: #f4f4f4;
+}
+
+main {
+  background: #f9f9f9;
+  padding: 1rem;
+}
+
+#root {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.greeting {
+  color: #646cff;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4a56a6;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+
+  aside {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  main {
+    padding: 0.5rem;
+  }
+
+  header, footer {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    height: 4em;
+    padding: 1em;
+  }
+
+  .greeting {
+    font-size: 1.2rem;
+  }
+
+  .card {
+    padding: 1em;
+  }
+}
