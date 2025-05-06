@@ -1,68 +1,257 @@
+/* 共通スタイル */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color: rgba(33, 33, 33, 0.87);
+  background-color: #f9f9f9;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+header {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+/* サイドバーの共通スタイル */
+aside {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-right: 1px solid #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  transform: translateX(-100%); /* 初期状態で画面外に隠す */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+aside.open {
+  transform: translateX(0); /* 表示状態 */
+}
+
+/* メインコンテンツのスタイル */
+main {
+  flex: 1;
+  padding: 1rem;
+  margin-left: 0; /* サイドバーが非表示のとき */
+  transition: margin-left 0.3s ease-in-out;
+}
+
+main.sidebar-open {
+  margin-left: 200px; /* サイドバーが表示されているとき */
+}
+
+/* ハンバーガーメニュー */
+.hamburger {
+  display: block;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1100;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+button:hover {
+  background-color: #0056b3;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* レスポンシブデザイン */
+
+/* スマホ用スタイル */
+@media (max-width: 480px) {
+  header, footer {
+    font-size: 0.9rem;
+    padding: 0.5rem;
   }
-  a:hover {
-    color: #747bff;
+
+  .hamburger {
+    display: block; /* スマホ版でハンバーガーメニューを表示 */
   }
+
+  aside {
+    width: 70%; /* スマホ版ではサイドバーを狭くする */
+  }
+
+  main {
+    margin-left: 0; /* スマホ版ではデフォルトでサイドバー非表示 */
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  th, td {
+    padding: 0.3rem;
+  }
+
   button {
-    background-color: #f9f9f9;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  input {
+    font-size: 0.9rem;
+  }
+}
+
+/* タブレット用スタイル */
+@media (min-width: 481px) and (max-width: 768px) {
+  header, footer {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .hamburger {
+    display: block; /* スマホ版でハンバーガーメニューを表示 */
+  }
+
+  aside {
+    width: 150px;
+    padding: 0.8rem;
+  }
+
+  main {
+    padding: 0.8rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 0.4rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  input {
+    font-size: 1rem;
+  }
+}
+
+/* デスクトップ用スタイル */
+@media (min-width: 769px) {
+  aside {
+    transform: translateX(0); /* デスクトップでは常に表示 */
+    position: static; /* 固定解除 */
+    width: 200px;
+  }
+
+  main {
+    margin-left: 200px; /* サイドバーの幅に合わせて余白を設定 */
+  }
+
+  main.sidebar-open {
+    margin-left: 200px; /* サイドバーが表示されているとき */
+  }
+}
+
+/* スマホ・タブレット用スタイル */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* スマホ版でハンバーガーメニューを表示 */
+  }
+
+  aside {
+    position: fixed;
+    width: 70%; /* サイドバーの幅を調整 */
+    height: 100%;
+    transform: translateX(-100%); /* 初期状態で非表示 */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  aside.open {
+    transform: translateX(0); /* 表示状態 */
+  }
+
+  main {
+    margin-left: 0; /* サイドバーが非表示のときは余白なし */
+  }
+
+  main.sidebar-open {
+    margin-left: 0; /* サイドバーが表示されても余白はなし */
   }
 }

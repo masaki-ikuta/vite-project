@@ -1,54 +1,77 @@
-# React + TypeScript + Vite
+# 勤務表アプリケーション
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+このアプリケーションは、従業員の勤務予定や実績を管理するためのツールです。日ごとの勤務予定と実績を集計し、表やグラフで可視化する機能を提供します。
 
-Currently, two official plugins are available:
+## 主な機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **社員一覧管理**: 社員の追加、検索、一覧表示。
+- **勤務予定表**: 従業員ごとの勤務予定と実績を表示。
+- **日別勤務実績**: 日ごとの勤務予定と実績を集計し、表とグラフで表示。
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 環境構築
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 必要なツール
+
+- Node.js (推奨バージョン: 16以上)
+- npm または yarn
+- Git
+
+### セットアップ手順
+
+1. **リポジトリをクローン**  
+```bash
+git clone <リポジトリURL>
+cd vite-project
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **環境変数を設定**  
+.envファイルを作成し、以下の内容を記述します。
+# 用意したAPIのパス
+VITE_API_BASE_URL=http://xxxxxx
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. **開発サーバーを起動**  
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run dev
 ```
+
+4. **ブラウザでアプリケーションを開く**
+
+開発サーバーが起動したら、ブラウザで以下のURLにアクセスします。  
+http://localhost:5173  
+
+---
+
+### プロジェクト構成
+
+```
+vite-project/
+├── src/
+│   ├── components/       # Reactコンポーネント
+│   ├── utils/            # ユーティリティ関数
+│   ├── App.tsx           # アプリケーションのエントリーポイント
+│   ├── main.tsx          # Reactのレンダリングエントリーポイント
+│   └── index.css         # グローバルスタイル
+├── public/               # 静的ファイル
+├── .env                  # 環境変数
+├── package.json          # プロジェクト設定と依存関係
+├── vite.config.ts        # Viteの設定
+└── README.md             # プロジェクトの説明
+```
+
+---
+
+### 使用方法
+
+主なコマンド
+
+| コマンド         | 説明                                      |
+|------------------|-------------------------------------------|
+| npm run dev      | 開発サーバーを起動します。                |
+| npm run build    | 本番環境用にアプリケーションをビルドします。|
+| npm run preview  | ビルド後のアプリケーションをプレビューします。|
+| npm run lint     | ESLintを使用してコードをチェックします。   |
+
