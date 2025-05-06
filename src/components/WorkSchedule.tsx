@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchWorkSchedules, fetchEmployees } from "../utils/api";
+import { fetchWorkSchedules, fetchEmployees, updateWorkSchedule } from "../utils/api";
 
 type WorkSchedule = {
   date: string;
@@ -14,6 +14,14 @@ type Employee = {
   employee_name: string;
 };
 
+export type WorkScheduleUpdate = {
+  organization_id: string,
+  employee_id: string,
+  date?: string;
+  shift?: string;
+  actual?: string;
+};
+
 const WorkSchedule: React.FC = () => {
   const [schedules, setSchedules] = useState<WorkSchedule[]>([]);
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -24,6 +32,8 @@ const WorkSchedule: React.FC = () => {
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`; // 初期表示を当月に設定
   });
   const organization_id = "org-0001"; // 組織IDを指定
+  const [updatedShift, setUpdatedShift] = useState<string>("");
+  const [updatedActual, setUpdatedActual] = useState<string>("");
 
   // 指定された月の日付を生成する関数
   const generateMonthDates = (year: number, month: number): { date: string; day: string; isWeekend: boolean }[] => {
@@ -64,6 +74,17 @@ const WorkSchedule: React.FC = () => {
 
     loadData();
   }, [currentMonth]);
+
+  const handleUpdateSchedule = async (updatedData: WorkScheduleUpdate) => {
+    try {
+      await updateWorkSchedule(updatedData);
+      // alert("勤務予定表を更新しました");
+      // 必要に応じてデータを再取得
+    } catch (error) {
+      console.error(error);
+      alert("勤務予定表の更新に失敗しました");
+    }
+  };
 
   if (loading) {
     return <p>読み込み中...</p>;
@@ -128,10 +149,41 @@ const WorkSchedule: React.FC = () => {
                   const schedule = schedules.find(
                     (s) => s.employee_id === employee.employee_id && s.date === date
                   );
+
                   return (
                     <td key={date} style={{ border: "1px solid #ddd", padding: "0.5rem" }}>
-                      <div>{schedule ? schedule.shift : "-"}</div>
-                      <div>{schedule ? schedule.actual : "-"}</div>
+                      <div
+                        contentEditable
+                        suppressContentEditableWarning
+                        onBlur={(e) => {
+                          const updatedShift = e.target.textContent || "";
+                          handleUpdateSchedule({
+                            organization_id,
+                            employee_id: employee.employee_id,
+                            date,
+                            shift: updatedShift,
+                          });
+                        }}
+                        style={{ border: "1px solid #ccc", padding: "0.3rem", marginBottom: "0.3rem" }}
+                      >
+                        {schedule ? schedule.shift : "-"}
+                      </div>
+                      <div
+                        contentEditable
+                        suppressContentEditableWarning
+                        onBlur={(e) => {
+                          const updatedActual = e.target.textContent || "";
+                          handleUpdateSchedule({
+                            organization_id,
+                            employee_id: employee.employee_id,
+                            date,
+                            actual: updatedActual,
+                          });
+                        }}
+                        style={{ border: "1px solid #ccc", padding: "0.3rem" }}
+                      >
+                        {schedule ? schedule.actual : "-"}
+                      </div>
                     </td>
                   );
                 })}

@@ -32,3 +32,26 @@ export const addEmployee = async (employee: Employee): Promise<Employee> => {
 
   return response.json();
 };
+
+export const updateWorkSchedule = async (
+  updatedSchedule: {
+    organization_id: string,
+    employee_id: string,
+    date: string;
+    shift?: string;
+    actual?: string;
+  }
+): Promise<void> => {
+  // console.log("Updating schedule:", updatedSchedule);
+  const response = await fetch(`${API_BASE_URL}/schedules`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedSchedule),
+  });
+
+  if (!response.ok) {
+    throw new Error("勤務予定表の更新に失敗しました");
+  }
+};
