@@ -1,11 +1,11 @@
 /* 共通スタイル */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(33, 33, 33, 0.87);
-  background-color: #f9f9f9;
+  color-scheme: light;
+  color: #333; /* テキスト色を明るいグレーに */
+  background-color: #ffffff; /* 背景色を白に */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,26 +17,30 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #f9f9f9; /* 全体の背景色を明るいトーンに */
 }
 
 header {
-  background: #333;
-  color: #fff;
+  background: #81c784; /* 明るい緑色 */
+  color: #ffffff; /* テキスト色を白に */
   text-align: center;
   padding: 1rem;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
 }
 
 footer {
-  background: #333;
-  color: #fff;
+  background: #81c784; /* 明るい緑色 */
+  color: #ffffff; /* テキスト色を白に */
   text-align: center;
   padding: 1rem;
   margin-top: auto;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
 }
 
 /* サイドバーの共通スタイル */
 aside {
-  background: #f4f4f4;
+  background: #ffffff; /* サイドバーの背景を白に */
   padding: 1rem;
   border-right: 1px solid #ddd;
   position: fixed;
@@ -53,12 +57,36 @@ aside.open {
   transform: translateX(0); /* 表示状態 */
 }
 
+nav li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+nav li .material-icons {
+  font-size: 24px;
+  color: #4caf50; /* アイコンを明るい緑色に */
+  margin-right: 0.5rem;
+}
+
+nav li a {
+  text-decoration: none;
+  color: #333; /* テキスト色を明るいグレーに */
+  font-size: 16px;
+}
+
+nav li a:hover {
+  color: #4caf50; /* ホバー時に明るい緑色に */
+}
+
 /* メインコンテンツのスタイル */
 main {
   flex: 1;
   padding: 1rem;
   margin-left: 0; /* サイドバーが非表示のとき */
+  background-color: #ffffff; /* メインコンテンツの背景を白に */
   transition: margin-left 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
 }
 
 main.sidebar-open {
@@ -72,18 +100,24 @@ main.sidebar-open {
   top: 1rem;
   left: 1rem;
   z-index: 1100;
-  background: #007bff;
-  color: #fff;
+  background: #81c784; /* 明るい緑色 */
+  color: #ffffff;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
 }
 
+.hamburger:hover {
+  background: #66bb6a; /* ホバー時に少し濃い緑色 */
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  background-color: #ffffff; /* テーブルの背景を白に */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
 }
 
 th, td {
@@ -93,28 +127,29 @@ th, td {
 }
 
 th {
-  background-color: #f4f4f4;
+  background-color: #e8f5e9; /* 明るい緑がかった背景色 */
+  color: #333;
 }
 
 tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* 偶数行の背景を明るいグレーに */
 }
 
 tr:hover {
-  background-color: #f1f1f1;
+  background-color: #e8f5e9; /* ホバー時に明るい緑がかった背景色 */
 }
 
 button {
   padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #4caf50;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
 input {
@@ -132,6 +167,75 @@ form {
 h2 {
   color: #333;
   margin-bottom: 1rem;
+}
+
+/* フォームのスタイル */
+.employee-form {
+  font-family: 'Roboto', sans-serif;
+  margin: 2rem;
+}
+
+.search-box input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.employee-table th, .employee-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.add-employee-form input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+/* お知らせページのスタイル */
+.admin-notice {
+  font-family: 'Roboto', sans-serif;
+  margin: 2rem;
+}
+
+.admin-notice h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.admin-notice ul {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-notice li {
+  background: #f9f9f9;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.admin-notice li h3 {
+  margin: 0 0 0.5rem;
+  color: #4caf50;
+}
+
+.admin-notice li p {
+  margin: 0.5rem 0;
+  color: #555;
 }
 
 /* レスポンシブデザイン */

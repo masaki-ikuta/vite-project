@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { fetchEmployees, addEmployee } from "../utils/api";
 
 export type Employee = {
-  organization_id: string; // 必須
-  employee_id: string;     // 必須
-  employee_name: string;   // 必須
-  department?: string;     // 任意
-  role?: string;           // 任意
+  organization_id: string;
+  employee_id: string;
+  employee_name: string;
+  department?: string;
+  role?: string;
 };
 
 const EmployeeForm: React.FC = () => {
@@ -14,22 +14,21 @@ const EmployeeForm: React.FC = () => {
   const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>(""); // 検索クエリ
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [newEmployee, setNewEmployee] = useState<Employee>({
     organization_id: "org-0001",
     employee_id: "",
     employee_name: "",
-    department: "", // 任意項目の初期値
-    role: "",       // 任意項目の初期値
+    department: "",
+    role: "",
   });
-  const organization_id = "org-0001";
 
   useEffect(() => {
     const loadEmployees = async () => {
       try {
-        const data = await fetchEmployees(organization_id);
+        const data = await fetchEmployees("org-0001");
         setEmployees(data);
-        setFilteredEmployees(data); // 初期状態では全社員を表示
+        setFilteredEmployees(data);
       } catch (err) {
         console.error(err);
         setError("社員データの取得に失敗しました");
@@ -50,7 +49,6 @@ const EmployeeForm: React.FC = () => {
     const query = e.target.value;
     setSearchQuery(query);
 
-    // 検索クエリに基づいて社員を絞り込む
     const filtered = employees.filter((employee) =>
       employee.employee_name.toLowerCase().includes(query.toLowerCase()) ||
       employee.employee_id.toLowerCase().includes(query.toLowerCase())
@@ -62,9 +60,9 @@ const EmployeeForm: React.FC = () => {
     e.preventDefault();
     try {
       const addedEmployee = await addEmployee(newEmployee);
-      setEmployees((prev) => [...prev, addedEmployee]); // 新しい社員をリストに追加
-      setFilteredEmployees((prev) => [...prev, addedEmployee]); // 絞り込みリストにも追加
-      setNewEmployee({ organization_id: "org-0001", employee_id: "", employee_name: "", department: "", role: "" }); // フォームをリセット
+      setEmployees((prev) => [...prev, addedEmployee]);
+      setFilteredEmployees((prev) => [...prev, addedEmployee]);
+      setNewEmployee({ organization_id: "org-0001", employee_id: "", employee_name: "", department: "", role: "" });
     } catch (err) {
       console.error(err);
       setError("社員の追加に失敗しました");
@@ -76,45 +74,44 @@ const EmployeeForm: React.FC = () => {
   }
 
   if (error) {
-    return <p style={{ color: "red" }}>{error}</p>;
+    return <p className="error">{error}</p>;
   }
 
   return (
-    <div>
+    <div className="employee-form">
       <h2>社員一覧</h2>
-      <div style={{ marginBottom: "1rem" }}>
+      <div className="search-box">
         <label>
           検索:
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
-            style={{ marginLeft: "0.5rem", padding: "0.3rem" }}
             placeholder="社員名または社員IDで検索"
           />
         </label>
       </div>
-      <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem" }}>
+      <table className="employee-table">
         <thead>
           <tr>
-            <th style={{ border: "1px solid #ddd", padding: "0.5rem", backgroundColor: "#f4f4f4" }}>社員名</th>
-            <th style={{ border: "1px solid #ddd", padding: "0.5rem", backgroundColor: "#f4f4f4" }}>社員ID</th>
-            <th style={{ border: "1px solid #ddd", padding: "0.5rem", backgroundColor: "#f4f4f4" }}>組織ID</th>
+            <th>社員名</th>
+            <th>社員ID</th>
+            <th>組織ID</th>
           </tr>
         </thead>
         <tbody>
           {filteredEmployees.map((employee) => (
             <tr key={employee.employee_id}>
-              <td style={{ border: "1px solid #ddd", padding: "0.5rem" }}>{employee.employee_name}</td>
-              <td style={{ border: "1px solid #ddd", padding: "0.5rem" }}>{employee.employee_id}</td>
-              <td style={{ border: "1px solid #ddd", padding: "0.5rem" }}>{employee.organization_id}</td>
+              <td>{employee.employee_name}</td>
+              <td>{employee.employee_id}</td>
+              <td>{employee.organization_id}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h2 style={{ marginTop: "2rem" }}>社員追加</h2>
-      <form onSubmit={handleAddEmployee} style={{ marginBottom: "1rem" }}>
-        <div style={{ marginBottom: "0.5rem" }}>
+      <h2>社員追加</h2>
+      <form onSubmit={handleAddEmployee} className="add-employee-form">
+        <div>
           <label>
             社員ID:
             <input
@@ -122,12 +119,11 @@ const EmployeeForm: React.FC = () => {
               name="employee_id"
               value={newEmployee.employee_id}
               onChange={handleInputChange}
-              style={{ marginLeft: "0.5rem", padding: "0.3rem" }}
               required
             />
           </label>
         </div>
-        <div style={{ marginBottom: "0.5rem" }}>
+        <div>
           <label>
             社員名:
             <input
@@ -135,12 +131,11 @@ const EmployeeForm: React.FC = () => {
               name="employee_name"
               value={newEmployee.employee_name}
               onChange={handleInputChange}
-              style={{ marginLeft: "0.5rem", padding: "0.3rem" }}
               required
             />
           </label>
         </div>
-        <div style={{ marginBottom: "0.5rem" }}>
+        <div>
           <label>
             部署 (任意):
             <input
@@ -148,11 +143,10 @@ const EmployeeForm: React.FC = () => {
               name="department"
               value={newEmployee.department || ""}
               onChange={handleInputChange}
-              style={{ marginLeft: "0.5rem", padding: "0.3rem" }}
             />
           </label>
         </div>
-        <div style={{ marginBottom: "0.5rem" }}>
+        <div>
           <label>
             役職 (任意):
             <input
@@ -160,23 +154,10 @@ const EmployeeForm: React.FC = () => {
               name="role"
               value={newEmployee.role || ""}
               onChange={handleInputChange}
-              style={{ marginLeft: "0.5rem", padding: "0.3rem" }}
             />
           </label>
         </div>
-        <button
-          type="submit"
-          style={{
-            padding: "0.5rem 1rem",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          社員を追加
-        </button>
+        <button type="submit">社員を追加</button>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 const Header: React.FC = () => {
   return (
-    <header style={{ background: "#333", color: "#fff", padding: "1rem" }}>
+    <header>
       <h1>アプリケーションのヘッダー</h1>
     </header>
   );

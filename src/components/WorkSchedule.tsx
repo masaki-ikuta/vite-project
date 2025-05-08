@@ -32,8 +32,6 @@ const WorkSchedule: React.FC = () => {
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`; // 初期表示を当月に設定
   });
   const organization_id = "org-0001"; // 組織IDを指定
-  const [updatedShift, setUpdatedShift] = useState<string>("");
-  const [updatedActual, setUpdatedActual] = useState<string>("");
 
   // 指定された月の日付を生成する関数
   const generateMonthDates = (year: number, month: number): { date: string; day: string; isWeekend: boolean }[] => {
@@ -77,7 +75,16 @@ const WorkSchedule: React.FC = () => {
 
   const handleUpdateSchedule = async (updatedData: WorkScheduleUpdate) => {
     try {
-      await updateWorkSchedule(updatedData);
+      if (!updatedData.date) {
+        throw new Error("Date is required");
+      }
+
+      const updatedDataWithDefaults = {
+        ...updatedData,
+        date: updatedData.date || "default-date", // 適切なデフォルト値を設定
+      };
+
+      await updateWorkSchedule(updatedDataWithDefaults);
       // alert("勤務予定表を更新しました");
       // 必要に応じてデータを再取得
     } catch (error) {
